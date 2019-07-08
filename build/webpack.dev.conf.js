@@ -52,11 +52,20 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    }),
+
+    // 自动将依赖注入到html模板中，并输出最终的html文件到目标文件夹
+    /**
+     * 注释下面这一块
+     */
+    // new HtmlWebpackPlugin({
+    //   filename: 'index.html',
+    //   template: 'index.html',
+    //   inject: true
+    // }),
+    /**
+     * 注释结束
+     */
+
     // copy custom static assets
     new CopyWebpackPlugin([
       {
@@ -65,7 +74,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
-  ]
+
+    /**
+     * 添加.concat(utils.htmlPlugin())   将原来的模板改为在 utils 中配置的多模板
+     */
+  ].concat(utils.htmlPlugin())
 })
 
 module.exports = new Promise((resolve, reject) => {
