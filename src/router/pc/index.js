@@ -25,7 +25,10 @@ let router = new Router({
  */
 router.beforeEach((to, from, next) => {
   if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-    window.location.href = '/mobile.html#/'
+    // window.location.href = '/mobile.html#/'
+
+    // 由于展示网页路径问题，需要将
+    window.location.href = './mobile.html#/'
     return
   }
   next()
