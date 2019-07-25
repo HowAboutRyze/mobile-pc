@@ -3,6 +3,7 @@
     <h1>{{ msg }}</h1>
     <h2>这是pc</h2>
     <router-link to="/haha">哈哈</router-link>
+    <p>试一下：按F12打开控制台切换手机模式，点击页面按钮，查看移动端切换</p>
     <vue-particles
         color="#dedede"
         :particleOpacity="0.7"
@@ -54,7 +55,7 @@ a {
 }
 </style>
 <style scoped>
-h1, h2, a {
+h1, h2, a, p {
   color: #fff;
 }
 .particles-js {
