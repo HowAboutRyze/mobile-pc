@@ -19,7 +19,6 @@
   </div>
 </template>
 <script>
-import { throttle } from '../../assets/js/utils'
 export default {
   name: 'MobileFoo',
   data () {
@@ -48,27 +47,29 @@ export default {
     }
   },
   methods: {
-    moveBanner: throttle(function (direction) {  // 要做防抖！！
-      console.log('ddd:', direction)
+    moveBanner (direction) {
+      console.log('direction:', direction)
+      if (!this.isTransition) return
       this.isTransition = true
       let currIdx = this.currIndex
       const listLen = this.list.length
       if (direction === 'next') {
         currIdx += 2
 
-        // 最大数的下一个，为复制出来的第一位
-        if (currIdx >= listLen) {
-          currIdx = listLen % 2 === 0 ? listLen : listLen + 1
-          this.currIndex = currIdx
+        // 复制出来的第一个跳下一个时，直接重置位置，跳第二个
+        if (listLen + 2 <= currIdx) {
+          this.isTransition = false
+          this.currIndex = 0
           setTimeout(() => {
-            this.isTransition = false
-            this.currIndex = 0
-          }, 400)
+            this.isTransition = true
+            this.currIndex = 2
+          })
+          return
         }
       } else {
         currIdx -= 2
 
-        // 最大数的下一个，为复制出来的第一位
+        // 第一个跳前一个，位置定位到复制出来的第一个，再跳前一个
         if (currIdx < 0) {
           currIdx = listLen % 2 === 0 ? listLen : listLen + 1
           this.isTransition = false
@@ -77,11 +78,11 @@ export default {
             this.isTransition = true
             this.currIndex = currIdx - 2
           })
+          return
         }
       }
       this.currIndex = currIdx
-      console.log('move', this.currIndex)
-    }, 400, { trailing: false }) 
+    }
   }
 }
 </script>
