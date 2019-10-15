@@ -37,12 +37,12 @@ export default {
       return _list.concat(_list)
     },
     bannerStyle () {
-      const itemWidth = 360
-      const itemMarginRight = 20
+      const itemWidth = 300
+      const itemMarginRight = 40
       const toX = -(itemWidth + itemMarginRight) * this.currIndex
       console.log('banner:', this.currIndex, toX)
       return {
-        transform: `translate3d(${toX / 100}rem, 0, 0)`
+        transform: `translate3d(${toX / 1000}rem, 0, 0)`
       }
     }
   },
@@ -88,14 +88,14 @@ export default {
 </script>
 <style lang="scss">
 @function rem($px){//$px为需要转换的字号
-    @return $px / 100 * 1rem; //100px为根字体大小
+    @return $px / 1000 * 1rem; //1000px为根字体大小
 }
 .banner-wrap {
   overflow: hidden;
-  width: rem(740);
+  width: rem(640);
   height: rem(300);
   margin: 0 auto;
-  border: rem(1) solid red;
+  background-color: gray;
 }
 .banner {
   display: flex;
@@ -104,10 +104,10 @@ export default {
   }
   .item {
     flex-shrink: 0;
-    width: rem(360);
+    width: rem(300);
     height: rem(200);
-    margin-right: rem(20);
-    background-color: mix(red, yellow)
+    margin-right: rem(40);
+    background-color: mix(red, yellow);
   }
 }
 </style>
